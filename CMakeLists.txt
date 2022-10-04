@@ -7,7 +7,7 @@ find_package(Threads REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 add_compile_options(-std=c++17)
 
-add_library(applibrary SHARED BubbleSort.cpp InsertionSort.cpp MergeSort.cpp)
+add_library(applibrary SHARED BubbleSort.cpp InsertionSort.cpp MergeSort.cpp QuickSort.cpp RadixSort.cpp)
 # Link runTests with what we want to test and the GTest and pthread library
 
 add_executable(runMain main.cpp)

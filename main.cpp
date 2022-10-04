@@ -7,6 +7,9 @@ using namespace std;
 #include "BubbleSort.h"
 #include "InsertionSort.h"
 #include "MergeSort.h"
+#include "QuickSort.h"
+#include "RadixSort.h"
+#include <iomanip>
 
 typedef chrono::high_resolution_clock Clock;
 
@@ -53,6 +56,14 @@ vector<vector<int>> generateArrays(){
     return arrays;
 }
 
+void printArray(vector<int> arr){
+    for(int i = 0; i < arr.size(); i++){
+        cout << arr[i] << ", ";
+    }
+    cout << endl;
+
+}
+
 int main(){
 
     vector<vector<int>> arrays = generateArrays();
@@ -65,16 +76,79 @@ int main(){
     BubbleSort bubbleSort;
     InsertionSort insertionSort;
     MergeSort mergeSort;
+    QuickSort quickSort;
+    RadixSort radixSort;
 
 
-    cout << sizeof(array) << endl;
+    for(int s = -1; s < 5; s++){
 
-    vector<int> new2SortedArray = mergeSort.sort(array);
+        string sortString;
 
-    for(int i = 0; i < sizeof(new2SortedArray); i++){
-        cout << new2SortedArray[i] << " ";
+
+        if (s == -1){
+            sortString = "";
+        }
+        if (s == 0){
+            sortString = "Bubble Sort";
+        }
+        else if (s == 1){
+            sortString = "Insertion Sort";
+        }
+        else if (s == 2){
+            sortString = "Merge Sort";
+        }
+        else if (s == 3){
+            sortString = "Quick Sort";
+        }
+        else if (s == 4) {
+            sortString = "Radix Sort";
+        }
+
+        cout << setw(15) << left << sortString;
+
+        for (int i = 0; i < arrays.size(); i++){
+
+            vector<int> currentArray = arrays.at(i);
+
+            if (s == -1){
+                cout << setw(10) << left << currentArray.size();
+                continue;
+            }
+
+            auto t1 = Clock::now();
+
+            if (s == 0){
+                currentArray = bubbleSort.sort(currentArray);
+            }
+            else if (s == 1){
+                currentArray = insertionSort.sort(currentArray);
+            }
+            else if (s == 2){
+                currentArray = mergeSort.sort(currentArray);
+            }
+            else if (s == 3){
+                currentArray = quickSort.sort(currentArray);
+            }
+            else {
+                currentArray = radixSort.sort(currentArray);
+            }
+
+            auto t2 = Clock::now();
+
+            string msString = "";
+
+            if (chrono::duration_cast<chrono::minutes>(t2 - t1).count() > 5){
+                cout << setw(10) << "> 5 minutes";
+                continue;
+            }
+
+            msString = to_string(chrono::duration_cast<chrono::nanoseconds>(t2 - t1).count() / 1000) + " ms";
+
+            cout << setw(10) << left << msString;
+
+        }
+        cout << endl;
     }
-    cout << endl;
 
     return 0;
 }
