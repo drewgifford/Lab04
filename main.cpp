@@ -6,11 +6,12 @@ using namespace std;
 #include <vector>
 #include "BubbleSort.h"
 #include "InsertionSort.h"
+#include "MergeSort.h"
 
 typedef chrono::high_resolution_clock Clock;
 
-int * createArray(int size){
-    int * array = new int[size];
+vector<int> createArray(int size){
+    vector<int> array;
     int maxN = size * 2;
     int minN = 0;
 
@@ -18,9 +19,12 @@ int * createArray(int size){
     mt19937 gen(rd());
     uniform_int_distribution<> distr(minN, maxN);
 
+    cout << "Creating array of size " << size << endl;
+
     for (int i = 0; i < size; i++){
+
         int generated = distr(gen);
-        array[i] = generated;
+        array.push_back(generated);
     }
 
     return array;
@@ -30,12 +34,12 @@ int millisBetween(chrono::_V2::system_clock::time_point t1, chrono::_V2::system_
     return std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
 }
 
-vector<int*> generateArrays(){
+vector<vector<int>> generateArrays(){
     cout << "Generating Arrays... ";
 
     auto t1 = Clock::now();
 
-    vector<int*> arrays;
+    vector<vector<int>> arrays;
 
     arrays.push_back(createArray(10));
     arrays.push_back(createArray(100));
@@ -51,27 +55,24 @@ vector<int*> generateArrays(){
 
 int main(){
 
-    vector<int*> arrays = generateArrays();
+    vector<vector<int>> arrays = generateArrays();
+
+    vector<int> array = createArray(25);
 
     cout << "Running Analysis..." << endl;
 
 
     BubbleSort bubbleSort;
     InsertionSort insertionSort;
+    MergeSort mergeSort;
 
 
-    int * sortedArray = bubbleSort.sort(arrays[4]);
+    cout << sizeof(array) << endl;
 
-    for(int i = 0; i < sizeof(sortedArray); i++){
-        cout << sortedArray[i] << " ";
-    }
-    cout << endl;
+    vector<int> new2SortedArray = mergeSort.sort(array);
 
-
-    int * newSortedArray = insertionSort.sort(arrays[4]);
-
-    for(int i = 0; i < sizeof(newSortedArray); i++){
-        cout << newSortedArray[i] << " ";
+    for(int i = 0; i < sizeof(new2SortedArray); i++){
+        cout << new2SortedArray[i] << " ";
     }
     cout << endl;
 

@@ -1,12 +1,15 @@
 #include "BubbleSort.h"
+#include <vector>
+
+using namespace std;
 
 BubbleSort::BubbleSort(){
 
 };
 
-int * BubbleSort::sort(int * array){
+vector<int> BubbleSort::sort(vector<int> array){
 
-    int arraySize = sizeof(array);
+    int arraySize = array.size();
 
     int swaps;
     do {

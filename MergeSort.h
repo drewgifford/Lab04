@@ -1,6 +1,13 @@
+#include <vector>
+using namespace std;
+
 class MergeSort {
     public:
 
         MergeSort();
-        int * sort(int * array);
+        vector<int> sort(vector<int> array);
+
+        vector<int> merge(vector<int>);
+
+
 };

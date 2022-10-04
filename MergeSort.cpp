@@ -1,5 +1,7 @@
 #include "MergeSort.h"
+#include <iostream>
 #include <vector>
+using namespace std;
 
 using namespace std;
 
@@ -7,32 +9,45 @@ MergeSort::MergeSort(){
 
 };
 
-int * MergeSort::sort(int * array){
+vector<int> MergeSort::merge(vector<int> arr){
 
-    int arraySize = sizeof(array);
+    if (arr.size() > 1){
 
-
-    for (int i = 0; i < arraySize-1; i++){
-
+        // Split array into two equal parts
+        int half_size = arr.size()/2;
         
-        int nextI = i+1;
+        cout << half_size << endl;
 
-        for(int reverseI = i; reverseI >= 0; reverseI++){
-            
-            int currValue = array[reverseI];
-            int nextValue = array[reverseI+1];
+        vector<int> leftArray(arr.begin(), arr.begin() + half_size);
+        vector<int> rightArray(arr.begin() + half_size, arr.end());
 
-            if (currValue > nextValue){
-                array[reverseI] = nextValue;
-                array[nextValue] = currValue;
+        leftArray = merge(leftArray);
+        rightArray = merge(rightArray);
+
+        int i,j,k = 0;
+
+        while (i < leftArray.size() && j < rightArray.size()){
+            if (leftArray[i] <= rightArray[j]){
+                arr[k] = leftArray[i];
+                i++;
             } else {
-                break;
+                arr[k] = rightArray[j];
+                j++;
             }
+            k++;
         }
-
+        
 
     }
 
+    return arr;
+
+
+}
+
+vector<int> MergeSort::sort(vector<int> array){
+
+    array = merge(array);
 
     return array;
 }

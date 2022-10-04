@@ -1,5 +1,6 @@
 #include "InsertionSort.h"
 #include <vector>
+using namespace std;
 
 using namespace std;
 
@@ -7,9 +8,9 @@ InsertionSort::InsertionSort(){
 
 };
 
-int * InsertionSort::sort(int * array){
+vector<int> InsertionSort::sort(vector<int> array){
 
-    int arraySize = sizeof(array);
+    int arraySize = array.size();
 
 
     for (int i = 0; i < arraySize-1; i++){

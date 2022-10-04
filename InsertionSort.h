@@ -1,6 +1,9 @@
+#include <vector>
+using namespace std;
+
 class InsertionSort {
     public:
 
         InsertionSort();
-        int * sort(int * array);
+        vector<int> sort(vector<int> array);
 };
